@@ -1,7 +1,9 @@
 package tn.esprit.spring.ContratsTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.Date;
@@ -21,9 +23,12 @@ import org.apache.logging.log4j.LogManager;
 
 import tn.esprit.spring.entities.Contrat;
 import tn.esprit.spring.entities.Employe;
+import tn.esprit.spring.entities.Mission;
+import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.repository.ContratRepository;
 import tn.esprit.spring.services.IContratService;
 import tn.esprit.spring.services.IEmployeService;
+import tn.esprit.spring.services.ITimesheetService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,6 +37,8 @@ public class UnitTest {
 	IContratService cs;
 	@Autowired
 	IEmployeService es;
+	@Autowired
+	ITimesheetService iTimesheetService;
 
 	@MockBean
 	private ContratRepository cr;
@@ -112,4 +119,28 @@ public class UnitTest {
 		c = es.affecterContratAEmploye(c.getReference(), allEmloyes.get(0).getId());
 		assertEquals(c.getEmploye().getId(), cs.getById(c.getReference()).getEmploye().getId());
 	}
+	
+	//@Test
+		public void TestAjouterMission() {
+			Mission mission= new Mission("externe","duréee de 3 mois");
+			
+			int miss=iTimesheetService.ajouterMission(mission);
+			 assertThat(miss).isEqualTo(7);
+			 l.info("Mission has been added successfully");
+		}
+		@Test
+		public void testAjouterTimesheet() {
+			Employe emp=new Employe("Issaoui", "Wissem","wissem@gmail.com",true,Role.ADMINISTRATEUR);
+			es.ajouterEmploye(emp);
+			iTimesheetService.ajouterTimesheet(5,emp.getId(),new Date(),new Date());
+			assertTrue(iTimesheetService.getAllEmployeByMission(5).size()==3);
+			l.info("Time Sheet has been added successfully");
+		}
+		//@Test
+		public void testGetAllEmployeByMission(){
+			
+			int x = iTimesheetService.getAllEmployeByMission(6).size();
+			assertThat(x).isEqualTo(3);
+			l.info("test add contrat success");
+		}
 }
