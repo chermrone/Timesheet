@@ -22,7 +22,6 @@ import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Mission;
 import tn.esprit.spring.entities.Timesheet;
-import tn.esprit.spring.services.IContratService;
 import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
@@ -37,8 +36,6 @@ public class RestControlEmploye {
 	IEntrepriseService ientrepriseservice;
 	@Autowired
 	ITimesheetService itimesheetservice;
-	@Autowired
-	IContratService cs;
 
 	
 	// http://localhost:8081/SpringMVC/servlet/ajouterEmployer
@@ -78,7 +75,7 @@ public class RestControlEmploye {
 	@PostMapping("/ajouterContrat")
 	@ResponseBody
 	public int ajouterContrat(@RequestBody Contrat contrat) {
-		cs.ajouterContrat(contrat);
+		iemployeservice.ajouterContrat(contrat);
 		return contrat.getReference();
 	}
 	
@@ -110,7 +107,7 @@ public class RestControlEmploye {
     @DeleteMapping("/deleteContratById/{idcontrat}") 
 	@ResponseBody
 	public void deleteContratById(@PathVariable("idcontrat")int contratId) {
-		cs.deleteContratById(contratId);
+		iemployeservice.deleteContratById(contratId);
 	}
 
     

@@ -29,8 +29,6 @@ public class EmployeServiceImpl implements IEmployeService {
 	@Autowired
 	ContratRepository contratRepoistory;
 	@Autowired
-	ContratServiceImpl contratService;
-	@Autowired
 	TimesheetRepository timesheetRepository;
 
 	public int ajouterEmploye(Employe employe) {
@@ -76,13 +74,18 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 	}
 
-	public Contrat affecterContratAEmploye(int contratId, int employeId) {
-		Contrat contratManagedEntity = contratService.findContratById(contratId);
+	public int ajouterContrat(Contrat contrat) {
+		contratRepoistory.save(contrat);
+		return contrat.getReference();
+	}
+
+	public void affecterContratAEmploye(int contratId, int employeId) {
+		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
 		Employe employeManagedEntity = employeRepository.findById(employeId).get();
 
 		contratManagedEntity.setEmploye(employeManagedEntity);
-		contratService.ajouterContrat(contratManagedEntity);
-		return contratManagedEntity;
+		contratRepoistory.save(contratManagedEntity);
+		
 	}
 
 	public String getEmployePrenomById(int employeId) {
@@ -101,6 +104,12 @@ public class EmployeServiceImpl implements IEmployeService {
 		}
 
 		employeRepository.delete(employe);
+	}
+
+	public void deleteContratById(int contratId) {
+		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
+		contratRepoistory.delete(contratManagedEntity);
+
 	}
 
 	public int getNombreEmployeJPQL() {
