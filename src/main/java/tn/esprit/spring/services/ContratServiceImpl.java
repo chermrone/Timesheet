@@ -14,7 +14,6 @@ public class ContratServiceImpl implements IContratService {
 	@Autowired ContratRepository cr;
 	@Override
 	public List<Contrat> getAll() {
-		// TODO Auto-generated method stub
 		return(List<Contrat>) cr.findAll();
 	}
 	
@@ -26,25 +25,25 @@ public class ContratServiceImpl implements IContratService {
 	
 	@Override
 	public void deleteContratById(int contratId) {
-		Contrat contratManagedEntity = cr.findById(contratId).get();
-		cr.delete(contratManagedEntity);
+		if(cr.existsById(contratId)) {
+			Contrat contratManagedEntity = cr.findById(contratId).orElseThrow(NullPointerException::new);
+			cr.delete(contratManagedEntity);
+		}
 	}
 
 	@Override
 	public Contrat getById(int id) {
-		// TODO Auto-generated method stub
 		return cr.findById(id).orElse(null);
 	}
 
 	@Override
 	public long nombreDeContrats() {
-		// TODO Auto-generated method stub
 		return cr.count();
 	}
 
 	@Override
 	public Contrat findContratById(int id) {
-		return cr.findById(id).get();
+			return cr.findById(id).orElseThrow(NullPointerException::new);
 	}
 
 }
