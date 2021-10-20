@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +23,22 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import tn.esprit.spring.entities.Contrat;
+import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Employe;
+import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Mission;
 import tn.esprit.spring.entities.Role;
+import tn.esprit.spring.entities.Timesheet;
+import tn.esprit.spring.entities.TimesheetPK;
 import tn.esprit.spring.repository.ContratRepository;
+import tn.esprit.spring.repository.DepartementRepository;
+import tn.esprit.spring.repository.EmployeRepository;
+import tn.esprit.spring.repository.EntrepriseRepository;
+import tn.esprit.spring.repository.MissionRepository;
+import tn.esprit.spring.repository.TimesheetRepository;
 import tn.esprit.spring.services.IContratService;
 import tn.esprit.spring.services.IEmployeService;
+import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
 
 @RunWith(SpringRunner.class)
@@ -39,13 +50,25 @@ public class UnitTest {
 	IEmployeService es;
 	@Autowired
 	ITimesheetService iTimesheetService;
+	@Autowired
+	IEntrepriseService entrepriseService;
 
 	@MockBean
 	private ContratRepository cr;
+	@MockBean
+	private EmployeRepository er;
+	@MockBean
+	private TimesheetRepository tsr;
+	@MockBean
+	private MissionRepository mr;
+	@MockBean
+	private DepartementRepository dr;
+	@MockBean
+	private EntrepriseRepository entr;
 
 	private static final Logger l = LogManager.getLogger(UnitTest.class);
 
-	@Test(timeout = 2000)
+	//@Test(timeout = 2000)
 	public void getAllTest() {
 		l.info("entring to test getAllContrats");
 		Contrat c1 = new Contrat();
@@ -67,7 +90,7 @@ public class UnitTest {
 		assertEquals(3, cs.getAll().size());
 	}
 	
-	@Test
+	//@Test
 	public void findByIdTest() {
 		Contrat c1 = new Contrat();
 		c1.setReference(100);
@@ -78,7 +101,7 @@ public class UnitTest {
 		assertEquals(c1, cs.findContratById(100));
 	}
 
-	@Test(timeout = 2000)
+	//@Test(timeout = 2000)
 	public void addandDeleteContratTest() {
 
 		/********** without mock ***********/
@@ -106,7 +129,7 @@ public class UnitTest {
 		l.info("test add contrat success");
 	}
 
-	@Test(timeout = 2000)
+	//@Test(timeout = 2000)
 	public void affectEmplToContrat() {
 
 		Contrat c = new Contrat();
@@ -128,13 +151,24 @@ public class UnitTest {
 			 assertThat(miss).isEqualTo(7);
 			 l.info("Mission has been added successfully");
 		}
-		@Test
+		//@Test
 		public void testAjouterTimesheet() {
 			Employe emp=new Employe("Issaoui", "Wissem","wissem@gmail.com",true,Role.ADMINISTRATEUR);
+			when(er.save(emp)).thenReturn(emp);
+			l.info("test add contrat success");
 			es.ajouterEmploye(emp);
-			iTimesheetService.ajouterTimesheet(5,emp.getId(),new Date(),new Date());
-			assertTrue(iTimesheetService.getAllEmployeByMission(5).size()==3);
-			l.info("Time Sheet has been added successfully");
+			TimesheetPK tspk=new TimesheetPK();
+			tspk.setIdEmploye(5);
+			tspk.setIdMission(5);
+			tspk.setDateDebut(new Date());
+			tspk.setDateFin(new Date());
+			Timesheet ts=new Timesheet();
+			ts.setTimesheetPK(tspk);
+			ts.setValide(true);
+			when(tsr.save(ts)).thenReturn(ts);
+			l.info("affichage ts: " + ts);
+			assertEquals((ts).getTimesheetPK(), iTimesheetService.addTimeSheet(tspk,ts));
+			l.info("timesheet ajouté avec succès");
 		}
 		//@Test
 		public void testGetAllEmployeByMission(){
@@ -143,4 +177,68 @@ public class UnitTest {
 			assertThat(x).isEqualTo(3);
 			l.info("test add contrat success");
 		}
+		/*@Test 
+		public void TestValiderTimesheet() {
+			Departement dept=new Departement();
+			List<Departement> departementList= new ArrayList<>();
+			Timesheet timesheet = new Timesheet();
+		
+			List<Timesheet> timesheetList= new ArrayList<>();
+			
+			Entreprise entreprise=new Entreprise();
+			entreprise.setId(10);
+			entreprise.setName("Vermeg");
+			entreprise.setRaisonSocial("IT");
+			entreprise.setDepartements(departementList);
+			Employe employee=new Employe();
+			employee.setId(10);
+			employee.setRole(Role.CHEF_DEPARTEMENT);
+			employee.setNom("Wissal");
+			employee.setPrenom("Aouissaoui");
+			employee.setActif(true);
+			employee.setEmail("wissal@gmail.com");
+			//List<Departement> departementList= new ArrayList<>();
+			departementList.add(dept);
+			employee.setDepartements(departementList);
+			
+			
+			Employe employee2=new Employe();
+			employee2.setId(11);
+			employee2.setRole(Role.INGENIEUR);
+			employee2.setNom("Wissem");
+			employee2.setPrenom("Aouissaoui");
+			employee2.setActif(true);
+			employee2.setEmail("wissem@gmail.com");
+			employee2.setDepartements(departementList);
+			timesheet.setEmploye(employee2);
+			
+			
+			Mission mission=new Mission();
+			mission.setId(10);
+			mission.setName("comptabilité");
+			mission.setDescription("durée de 6mois");
+			mission.setDepartement(dept);
+			timesheet.setMission(mission);
+			timesheetList.add(timesheet);
+			dept.setId(10);
+			dept.setName("Comptabilité");
+			entrepriseService.affecterDepartementAEntreprise(10, 10);
+			TimesheetPK tspk = new TimesheetPK();
+			tspk.setIdMission(10);
+			tspk.setDateDebut(new Date());
+			tspk.setDateFin(new Date());
+			tspk.setIdEmploye(11);
+			timesheet.setTimesheetPK(tspk);
+			employee2.setTimesheets(timesheetList);
+			when(er.save(employee)).thenReturn(employee);
+			when(entr.save(entreprise)).thenReturn(entreprise);
+			when(mr.save(mission)).thenReturn(mission);
+			when(dr.save(dept)).thenReturn(dept);
+			when(er.save(employee2)).thenReturn(employee2);
+			when(tsr.save(timesheet)).thenReturn(timesheet);
+			iTimesheetService.validerTimesheet(10, 10, new Date(), new Date(), 11);
+			when(tsr.findBytimesheetPK(tspk)).thenReturn(timesheet);
+			l.info("added");
+			assertEquals(timesheet,iTimesheetService.findTimesheetByTimesheetPK(tspk));
+	}*/
 }

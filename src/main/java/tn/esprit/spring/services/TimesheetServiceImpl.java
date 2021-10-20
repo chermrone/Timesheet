@@ -3,6 +3,7 @@ package tn.esprit.spring.services;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		
 	}
 
-	public void ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
+	public TimesheetPK ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
 		TimesheetPK timesheetPK = new TimesheetPK();
 		timesheetPK.setDateDebut(dateDebut);
 		timesheetPK.setDateFin(dateFin);
@@ -56,18 +57,20 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		timesheet.setTimesheetPK(timesheetPK);
 		timesheet.setValide(false); //par defaut non valide
 		timesheetRepository.save(timesheet);
+		return timesheetPK;
+		
 		
 	}
 
 	
-	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
+	public Boolean validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
 		System.out.println("In valider Timesheet");
 		Employe validateur = employeRepository.findById(validateurId).get();
 		Mission mission = missionRepository.findById(missionId).get();
 		//verifier s'il est un chef de departement (interet des enum)
 		if(!validateur.getRole().equals(Role.CHEF_DEPARTEMENT)){
 			System.out.println("l'employe doit etre chef de departement pour valider une feuille de temps !");
-			return;
+			return false;
 		}
 		//verifier s'il est le chef de departement de la mission en question
 		boolean chefDeLaMission = false;
@@ -79,7 +82,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		}
 		if(!chefDeLaMission){
 			System.out.println("l'employe doit etre chef de departement de la mission en question");
-			return;
+			return false;
 		}
 //
 		TimesheetPK timesheetPK = new TimesheetPK(missionId, employeId, dateDebut, dateFin);
@@ -89,6 +92,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		//Comment Lire une date de la base de données
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		System.out.println("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
+		return true;
 		
 	}
 
@@ -100,6 +104,24 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	
 	public List<Employe> getAllEmployeByMission(int missionId) {
 		return timesheetRepository.getAllEmployeByMission(missionId);
+	}
+
+	@Override
+	public TimesheetPK addTimeSheet(TimesheetPK tspk, Timesheet ts) {
+		// TODO Auto-generated method stub
+		
+		ts.setTimesheetPK(tspk);
+		timesheetRepository.save(ts);
+		 return tspk;
+		
+	}
+
+	@Override
+	public Timesheet findTimesheetByTimesheetPK(TimesheetPK timesheetpk) {
+		// TODO Auto-generated method stub
+		Timesheet timesheet=timesheetRepository.findBytimesheetPK(timesheetpk);
+		return timesheet ;
+		
 	}
 
 }
