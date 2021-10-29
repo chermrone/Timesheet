@@ -36,6 +36,8 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	IEmployeService es;
 	@Autowired
 	IMissionService ms;
+	@Autowired
+	IDepartmentService ds;
 	
 	public int ajouterMission(Mission mission) {
 		missionRepository.save(mission);
@@ -44,7 +46,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
     
 	public void affecterMissionADepartement(int missionId, int depId) {
 		Mission mission = ms.findMissionById(missionId);
-		Departement dep = deptRepoistory.findById(depId).get();
+		Departement dep = ds.findDepartementById(depId);
 		mission.setDepartement(dep);
 		missionRepository.save(mission);
 		

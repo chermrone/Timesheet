@@ -1,15 +1,15 @@
 package tn.esprit.spring.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import tn.esprit.spring.entities.Mission;
 import tn.esprit.spring.repository.MissionRepository;
 
 @Service
-public class MissionSeriveImpl implements IMissionService {
+public class MissionServiceImpl implements IMissionService {
 
 	@Autowired
 	MissionRepository mr;
@@ -26,14 +26,13 @@ public class MissionSeriveImpl implements IMissionService {
 
 	@Override
 	public void deleteMissionById(int missionId) {
-		if (mr.findById(missionId).get()!=null) {
-			Mission mission=mr.findById(missionId).get();
-			mr.delete(mission);
+		Optional<Mission> m=mr.findById(missionId);
+		if (m.isPresent()) {
+			Mission mission = mr.findById(missionId).get();
+		mr.delete(mission);}
+		
 		}
 		
-		
-		
-	}
 
 	@Override
 	public long nombreDeMissions() {
