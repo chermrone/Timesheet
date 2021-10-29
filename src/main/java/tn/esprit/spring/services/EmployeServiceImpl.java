@@ -143,7 +143,6 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	@Override
 	public Employe getEmployeById(int employeId) {
-		// TODO Auto-generated method stub
 		return employeRepository.findById(employeId).orElse(null);
 	}
 

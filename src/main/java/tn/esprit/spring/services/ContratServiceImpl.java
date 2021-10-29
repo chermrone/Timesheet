@@ -14,7 +14,6 @@ public class ContratServiceImpl implements IContratService {
 	@Autowired ContratRepository cr;
 	@Override
 	public List<Contrat> getAll() {
-		// TODO Auto-generated method stub
 		return(List<Contrat>) cr.findAll();
 	}
 	
@@ -32,13 +31,11 @@ public class ContratServiceImpl implements IContratService {
 
 	@Override
 	public Contrat getById(int id) {
-		// TODO Auto-generated method stub
 		return cr.findById(id).orElse(null);
 	}
 
 	@Override
 	public long nombreDeContrats() {
-		// TODO Auto-generated method stub
 		return cr.count();
 	}
 

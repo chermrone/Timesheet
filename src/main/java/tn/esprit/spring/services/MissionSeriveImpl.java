@@ -24,14 +24,17 @@ public class MissionSeriveImpl implements IMissionService {
 
 	@Override
 	public void deleteMissionById(int missionId) {
-		Mission mission=mr.findById(missionId).get();
-		mr.delete(mission);
+		if (mr.findById(missionId).get()!=null) {
+			Mission mission=mr.findById(missionId).get();
+			mr.delete(mission);
+		}
+		
+		
 		
 	}
 
 	@Override
 	public long nombreDeMissions() {
-		// TODO Auto-generated method stub
 		return mr.count();
 	}
 
