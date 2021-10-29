@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,6 +35,7 @@ import tn.esprit.spring.repository.TimesheetRepository;
 import tn.esprit.spring.services.IContratService;
 import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
+import tn.esprit.spring.services.IMissionService;
 import tn.esprit.spring.services.ITimesheetService;
 
 @RunWith(SpringRunner.class)
@@ -47,6 +49,8 @@ public class UnitTest {
 	ITimesheetService iTimesheetService;
 	@Autowired
 	IEntrepriseService entrepriseService;
+	@Autowired
+	IMissionService ms;
 	
 
 	@MockBean
@@ -173,6 +177,40 @@ public class UnitTest {
 			assertThat(x).isEqualTo(3);
 			l.info("test add contrat success");
 		}
+		
+		//@Test
+		public void findMissionByIdTest() {
+			Mission mission = new Mission();
+			mission.setId(20);
+			mission.setDescription("comptable chez une société IT");
+			mission.setName("comptable out sourcing");
+			when(mr.findById(20)).thenReturn(Optional.of(mission));
+			assertEquals(mission, ms.findMissionById(20));}
+		//@Test
+		public void getAllMissionsTest() {
+			l.info(" Testing getAllMissions");
+			Mission mission1=new Mission();
+			mission1.setId(100);
+			mission1.setDescription("externe");
+			mission1.setName("marketing");
+			Mission mission2= new Mission();
+			mission2.setId(101);
+			mission2.setDescription("externe");
+			mission2.setName("RH");
+			when(mr.findAll()).thenReturn(Stream.of(mission1,mission2).collect(Collectors.toList()));
+		assertEquals(2,ms.getAll().size());
+		}
+		@Test
+		public void addMissionTest() {
+		Mission mission = new Mission();
+		mission.setId(11);
+		mission.setDescription("externe");
+mission.setName("marketing");
+
+		when(mr.save(mission)).thenReturn(mission);
+		l.info("la mission est: " + mission);
+		assertEquals(mission.getId(), ms.ajouterMission(mission));
+		l.info("mission has been added successfully");}
 		/*@Test 
 		public void testValiderTimesheet() {
 			Entreprise entreprise=new Entreprise();
