@@ -29,6 +29,7 @@ public interface IEmployeService {
 	public List<Employe> getAllEmployes();
 	public List<Timesheet> getTimesheetsByMissionAndDate(Employe employe, Mission mission, 
 	Date dateDebut, Date dateFin);
+	public Employe getEmployeById(int employeId);
 	
 	
 	

@@ -52,6 +52,7 @@ public class UnitTest {
 	ITimesheetService iTimesheetService;
 	@Autowired
 	IEntrepriseService entrepriseService;
+	
 
 	@MockBean
 	private ContratRepository cr;
@@ -178,18 +179,11 @@ public class UnitTest {
 			l.info("test add contrat success");
 		}
 		/*@Test 
-		public void TestValiderTimesheet() {
-			Departement dept=new Departement();
-			List<Departement> departementList= new ArrayList<>();
-			Timesheet timesheet = new Timesheet();
-		
-			List<Timesheet> timesheetList= new ArrayList<>();
-			
+		public void testValiderTimesheet() {
 			Entreprise entreprise=new Entreprise();
 			entreprise.setId(10);
 			entreprise.setName("Vermeg");
 			entreprise.setRaisonSocial("IT");
-			entreprise.setDepartements(departementList);
 			Employe employee=new Employe();
 			employee.setId(10);
 			employee.setRole(Role.CHEF_DEPARTEMENT);
@@ -197,11 +191,6 @@ public class UnitTest {
 			employee.setPrenom("Aouissaoui");
 			employee.setActif(true);
 			employee.setEmail("wissal@gmail.com");
-			//List<Departement> departementList= new ArrayList<>();
-			departementList.add(dept);
-			employee.setDepartements(departementList);
-			
-			
 			Employe employee2=new Employe();
 			employee2.setId(11);
 			employee2.setRole(Role.INGENIEUR);
@@ -209,20 +198,27 @@ public class UnitTest {
 			employee2.setPrenom("Aouissaoui");
 			employee2.setActif(true);
 			employee2.setEmail("wissem@gmail.com");
-			employee2.setDepartements(departementList);
-			timesheet.setEmploye(employee2);
 			
-			
+			Departement dept=new Departement();
+			dept.setId(10);
+			dept.setName("Comptabilité");
+			List<Departement> departementList= new ArrayList<>();
+			departementList.add(dept);
 			Mission mission=new Mission();
 			mission.setId(10);
 			mission.setName("comptabilité");
 			mission.setDescription("durée de 6mois");
 			mission.setDepartement(dept);
+			Timesheet timesheet = new Timesheet();
+			List<Timesheet> timesheetList= new ArrayList<>();
+			entreprise.setDepartements(departementList);
+			//entrepriseService.affecterDepartementAEntreprise(10, 10);
+			//List<Departement> departementList= new ArrayList<>();
+			employee.setDepartements(departementList);
+			employee2.setDepartements(departementList);
+			timesheet.setEmploye(employee2);
 			timesheet.setMission(mission);
 			timesheetList.add(timesheet);
-			dept.setId(10);
-			dept.setName("Comptabilité");
-			entrepriseService.affecterDepartementAEntreprise(10, 10);
 			TimesheetPK tspk = new TimesheetPK();
 			tspk.setIdMission(10);
 			tspk.setDateDebut(new Date());
@@ -230,6 +226,12 @@ public class UnitTest {
 			tspk.setIdEmploye(11);
 			timesheet.setTimesheetPK(tspk);
 			employee2.setTimesheets(timesheetList);
+			es.ajouterEmploye(employee);
+			es.ajouterEmploye(employee2);
+			entrepriseService.ajouterEntreprise(entreprise);
+			iTimesheetService.ajouterMission(mission);
+		entrepriseService.ajouterDepartement(dept);
+		;
 			when(er.save(employee)).thenReturn(employee);
 			when(entr.save(entreprise)).thenReturn(entreprise);
 			when(mr.save(mission)).thenReturn(mission);
@@ -239,6 +241,6 @@ public class UnitTest {
 			iTimesheetService.validerTimesheet(10, 10, new Date(), new Date(), 11);
 			when(tsr.findBytimesheetPK(tspk)).thenReturn(timesheet);
 			l.info("added");
-			assertEquals(timesheet,iTimesheetService.findTimesheetByTimesheetPK(tspk));
+			assertTrue(iTimesheetService.validerTimesheet(10, 10, new Date(), new Date(), 11));
 	}*/
 }
