@@ -39,6 +39,13 @@ public class Entreprise implements Serializable{
 		super();
 	}
 
+	public Entreprise(int id, String name, String raisonSocial) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.raisonSocial = raisonSocial;
+	}
+
 	public Entreprise(String name, String raisonSocial) {
 		this.name = name;
 		this.raisonSocial = raisonSocial;
