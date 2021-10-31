@@ -1,15 +1,12 @@
-package tn.esprit.ContratsTest;
+package tn.esprit.spring.test;
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,7 +14,7 @@ import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.services.EntrepriseServiceImpl;
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = TimeSheetTest.class)
 public class TimeSheetTest {
 
 	EntrepriseServiceImpl entreSer;
@@ -26,8 +23,8 @@ public class TimeSheetTest {
 	
 	
 	@Test(expected=NullPointerException.class)
-	public void testeajouterEntreprise() throws IOException{
-		//Entreprise entr=new Entreprise(1,null,"p");
+	public void testeajouterEntreprise() {
+		
 		Entreprise entr=new Entreprise(1,"hkjb","p");
 
 		assertTrue(entr.getRaisonSocial().equals("p"));
@@ -40,7 +37,7 @@ public class TimeSheetTest {
 	public void testedeleteEntrepriseById()  {
 		Entreprise entr=new Entreprise(1,"","p");
 		assertNotNull(entr.getId());
-	//	System.out.println(entr.getId());
+
 		entreSer.deleteEntrepriseById(entr.getId());
 		l.info("entreprise est supprimer");
 	}
@@ -59,4 +56,17 @@ public class TimeSheetTest {
 		assertNotNull(dep.getId());
 		entreSer.affecterDepartementAEntreprise(dep.getId(), entr.getId());
 	}
+	
+	 	@org.aspectj.lang.annotation.Around("execution(* tn.esprit.spring.services.*.*(..))")
+	public Object time(org.aspectj.lang.ProceedingJoinPoint pjp) {
+		
+	long start = System.currentTimeMillis();
+	long elapsedTime = System.currentTimeMillis() - start;
+	if (elapsedTime>3000){
+	l.info( elapsedTime );
+	return pjp.getSignature();
+	}
+	return null;
+	}
+	 
 }
