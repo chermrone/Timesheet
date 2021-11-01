@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+ 
 
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Employe;
@@ -38,10 +38,11 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	}
     
 	public void affecterMissionADepartement(int missionId, int depId) {
-		Mission mission = missionRepository.findById(missionId).get();
-		Departement dep = deptRepoistory.findById(depId).get();
-		mission.setDepartement(dep);
-		missionRepository.save(mission);
+		Mission mission = missionRepository.findById(missionId).orElse(null);
+		Departement dep = deptRepoistory.findById(depId).orElse(null);
+		if(mission!=null && dep!=null)
+		{	mission.setDepartement(dep);
+		missionRepository.save(mission);}
 		
 	}
 
@@ -62,9 +63,10 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	
 	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
 		System.out.println("In valider Timesheet");
-		Employe validateur = employeRepository.findById(validateurId).get();
-		Mission mission = missionRepository.findById(missionId).get();
+		Employe validateur = employeRepository.findById(validateurId).orElse(null);
+		Mission mission = missionRepository.findById(missionId).orElse(null);
 		//verifier s'il est un chef de departement (interet des enum)
+	if(validateur!=null && mission!=null) {
 		if(!validateur.getRole().equals(Role.CHEF_DEPARTEMENT)){
 			System.out.println("l'employe doit etre chef de departement pour valider une feuille de temps !");
 			return;
@@ -80,7 +82,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		if(!chefDeLaMission){
 			System.out.println("l'employe doit etre chef de departement de la mission en question");
 			return;
-		}
+		}}
 //
 		TimesheetPK timesheetPK = new TimesheetPK(missionId, employeId, dateDebut, dateFin);
 		Timesheet timesheet =timesheetRepository.findBytimesheetPK(timesheetPK);

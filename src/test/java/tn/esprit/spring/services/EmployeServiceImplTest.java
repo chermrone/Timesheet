@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ class EmployeServiceImplTest {
 	private EmployeRepository empRep;
 	private EmployeServiceImpl empService;
 	
-	private static final Logger l = LogManager.getLogger(EmployeServiceImplTest.class);
+	//private static final Logger l = LogManager.getLogger(EmployeServiceImplTest.class);
 	@BeforeEach
 	void setup() {
 	 
@@ -45,10 +45,10 @@ class EmployeServiceImplTest {
  		
  		//test
  		 
- 		l.info("test..");	 
+ 	//	l.info("test..");	 
  		assertThat(empService.getAllEmployes()).hasSize(2);
  		
- 		l.info("test passed :) ");			 
+ 	//	l.info("test passed :) ");			 
 		 
  	}
  	
@@ -66,7 +66,7 @@ class EmployeServiceImplTest {
 		Employe capturedEmp=empArgumentCaptor.getValue();
 	 
 		assertThat( capturedEmp).isEqualTo(emp);
-		l.info("test passed :) ");	
+	//	l.info("test passed :) ");	
 		
 	}
 	@Test
@@ -77,7 +77,7 @@ class EmployeServiceImplTest {
 		
 		empRep.deleteById(1);
 		verify(empRep,times(1)).deleteById(1);
-		l.info("test passed :) ");	
+	//	l.info("test passed :) ");	
 		
 	}
 	/*@Test
