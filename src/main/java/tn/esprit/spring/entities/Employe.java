@@ -3,6 +3,7 @@ package tn.esprit.spring.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,11 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -41,19 +44,24 @@ public class Employe implements Serializable {
 	
 	//@JsonBackReference  
 	@JsonIgnore
-	@ManyToMany(mappedBy="employes",fetch=FetchType.EAGER )
+	@ManyToMany(cascade=CascadeType.ALL,mappedBy="employes",fetch=FetchType.EAGER )
 	//@NotNull
 	private List<Departement> departements;
 	
 	@JsonIgnore
 	//@JsonBackReference
-	@OneToOne(mappedBy="employe")
+	@OneToOne(mappedBy="employe",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Contrat contrat;
 	
 	@JsonIgnore
 	//@JsonBackReference
-	@OneToMany(mappedBy="employe")
+	@OneToMany(mappedBy="employe",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<Timesheet> timesheets;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	    @JoinColumn(name = "mission_id", nullable = true)
+	    private List<Mission> missions;
 	
 	
 	public Employe() {

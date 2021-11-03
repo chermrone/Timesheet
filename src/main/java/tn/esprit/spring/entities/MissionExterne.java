@@ -1,5 +1,8 @@
 package tn.esprit.spring.entities;
 
+import java.sql.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 
 @Entity
@@ -19,8 +22,9 @@ public class MissionExterne extends Mission {
 	}
 
 
-	public MissionExterne(String name, String description, String emailFacturation, float tauxJournalierMoyen) {
-		super(name, description);
+	public MissionExterne (int id, String name, String description, Date dateDébut, int durée, Departement departement,
+	 String emailFacturation, float tauxJournalierMoyen) {
+		super();
 		this.emailFacturation = emailFacturation;
 		this.tauxJournalierMoyen = tauxJournalierMoyen;
 	}
