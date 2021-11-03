@@ -1,2 +1,1 @@
 # Timesheet
-academic project
