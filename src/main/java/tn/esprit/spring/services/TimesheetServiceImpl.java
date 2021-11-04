@@ -41,7 +41,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
     
 	public void affecterMissionADepartement(int missionId, int depId) {
 		List<Departement> deps=(List<Departement>) deptRepoistory.findAll();
-		List<Mission> miss=(List<Mission>) missionRepository.findAll();
+		List<Mission> miss=missionRepository.findAll();
 		if(missionRepository.findById(missionId).isPresent()&&deptRepoistory.findById(depId).isPresent())
 		{
 		Mission mission = miss.get(missionId);
@@ -69,7 +69,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
 		l.info("In valider Timesheet");
 		List<Employe> emp=(List<Employe>) employeRepository.findAll();
-		List<Mission> miss=(List<Mission>) missionRepository.findAll();
+		List<Mission> miss=missionRepository.findAll();
 		if(employeRepository.findById(validateurId).isPresent()&&missionRepository.findById(missionId).isPresent())
 		{
 		Employe validateur = emp.get(validateurId);

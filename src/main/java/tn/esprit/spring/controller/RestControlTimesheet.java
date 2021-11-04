@@ -32,9 +32,9 @@ public class RestControlTimesheet {
 
 	@PostMapping("/ajouterMission")
 	@ResponseBody
-	public int ajouterMission(@RequestBody Mission mission) {
-		itimesheetservice.ajouterMission(mission);
-		return mission.getId();
+	public int ajouterMission(@RequestBody Mission m) {
+		itimesheetservice.ajouterMission(m);
+		return m.getId();
 	}
 
 	// http://localhost:8081/SpringMVC/servlet/affecterMissionADepartement/4/4

@@ -13,13 +13,13 @@ import tn.esprit.spring.entities.Mission;
 public interface IMissionService {
 	
 	void addMission(Mission mission);
-	void DeleteById(@PathVariable("id") int id) ;
+	void deleteById(@PathVariable("id") int id) ;
 	void updateMission(Mission mission) ;
-	Mission findByName(@Param("missionName") String MissionName);
+	Mission findByName(@Param("missionName") String missionName);
 	List<Mission> findAll() ;
-	List<String> MissionsNames();
+	List<String> missionsNames();
     Long nbreMission();
-    List<Mission> getAllMissionsByDepartment(@Param("dep") Departement DEPAR);
+    List<Mission> getAllMissionsByDepartment(@Param("dep") Departement depar);
     
 	
 	

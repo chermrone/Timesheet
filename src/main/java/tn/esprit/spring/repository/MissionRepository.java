@@ -12,13 +12,13 @@ import tn.esprit.spring.entities.Mission;
 
 @Repository
 public interface MissionRepository extends CrudRepository<Mission, Integer> {
-	@Query("select m from Mission m where m.name=:MissionName")
-	Mission findByName(@Param("MissionName") String MissionName);
+	@Query("select m from Mission m where m.name=:missionName")
+	Mission findByName(@Param("missionName") String missionName);
 	
 	List<Mission> findAll() ;
 	
 	@Query("select name from Mission")
-	List<String> MissionsNames();
+	List<String> missionsNames();
 	
 	@Query("SELECT count(*) FROM Mission")
     int nbreMission();
@@ -28,7 +28,7 @@ public interface MissionRepository extends CrudRepository<Mission, Integer> {
 			+ "DISTINCT m from Mission m "
 			+ "join m.departement deps "
 			+ "where deps=:dep")
-     List<Mission> getAllMissionByDepartment(@Param("dep") Departement DEPAR);
+     List<Mission> getAllMissionByDepartment(@Param("dep") Departement depar);
     
     
 	

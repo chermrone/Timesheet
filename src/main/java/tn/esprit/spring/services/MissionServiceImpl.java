@@ -25,11 +25,11 @@ public class MissionServiceImpl implements IMissionService {
 	}
 
 	@Override
-	public void DeleteById(int id) {
+	public void deleteById(int id) {
 		mrepo.deleteById(id);
 	}
 	
-	public void DeleteAll() {
+	public void deleteAll() {
 		mrepo.deleteAll();		
 	}
 	
@@ -40,9 +40,9 @@ public class MissionServiceImpl implements IMissionService {
 	}
 
 	@Override
-	public Mission findByName(String MissionName) {
+	public Mission findByName(String missionName) {
 
-		return mrepo.findByName(MissionName);
+		return mrepo.findByName(missionName);
 	}
 
 	@Override
@@ -50,9 +50,8 @@ public class MissionServiceImpl implements IMissionService {
 		return mrepo.findAll();}
 
 	@Override
-	public List<String> MissionsNames() {
-		List<String> missions = mrepo.MissionsNames();
-		return missions;
+	public List<String> missionsNames() {
+		return mrepo.missionsNames();
 		
 	}
 
@@ -63,10 +62,10 @@ public class MissionServiceImpl implements IMissionService {
 	}
 
 	@Override
-	public List<Mission> getAllMissionsByDepartment(Departement DEPAR) {
+	public List<Mission> getAllMissionsByDepartment(Departement depar) {
 		
 		
-		return mrepo.getAllMissionByDepartment(DEPAR);
+		return mrepo.getAllMissionByDepartment(depar);
 	}
 
 }

@@ -3,7 +3,6 @@ package tn.esprit.spring.entities;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
@@ -35,8 +33,8 @@ public class Mission implements Serializable {
 	@Size(max=12,message="Enter a valid name ! at max 20 caracters !")
 	private String name;
 	private String description;
-	private Date dateDébut;
-	private int Durée ; 
+	private Date dateDebut;
+	private int duree ; 
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -104,46 +102,84 @@ public class Mission implements Serializable {
 		this.timesheets = timesheets;
 	}
 
-	public Date getDateDébut() {
-		return dateDébut;
+	public Date getdateDebut() {
+		return dateDebut;
 	}
 
-	public void setDateDébut(Date dateDébut) {
-		this.dateDébut = dateDébut;
+	public void setdateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
 	}
 
-	public int getDurée() {
-		return Durée;
-	}
-
-	public void setDurée(int durée) {
-		Durée = durée;
-	}
-
-
-
-
-	public Mission(int id, String name, String description, Date dateDébut, int durée, Departement departement,
-			List<Timesheet> timesheets) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.dateDébut = dateDébut;
-		Durée = durée;
-		this.departement = departement;
-		this.timesheets = timesheets;
-	}
 	
-	public Mission( String name, String description, Date dateDébut, int durée, Departement departement,
-			List<Timesheet> timesheets) {
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	public Mission(
+			@NotEmpty(message = "this field is required") @Size(min = 3, message = "Enter a valid name ! at least 3 caracters ! ") @Size(max = 12, message = "Enter a valid name ! at max 20 caracters !") String name,
+			String description, Date dateDebut, int duree, Departement departement, List<Timesheet> timesheets,
+			Employe employe) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.dateDébut = dateDébut;
-		Durée = durée;
+		this.dateDebut = dateDebut;
+		this.duree = duree;
 		this.departement = departement;
 		this.timesheets = timesheets;
+		this.employe = employe;
+	}
+
+
+
+
+	public Date getDateDebut() {
+		return dateDebut;
+	}
+
+
+
+
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+
+
+
+	public int getDuree() {
+		return duree;
+	}
+
+
+
+
+	public void setDuree(int duree) {
+		this.duree = duree;
+	}
+
+
+
+
+	public Employe getEmploye() {
+		return employe;
+	}
+
+
+
+
+	public void setEmploye(Employe employe) {
+		this.employe = employe;
 	}
 
 }
