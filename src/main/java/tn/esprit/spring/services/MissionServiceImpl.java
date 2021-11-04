@@ -28,7 +28,7 @@ public class MissionServiceImpl implements IMissionService {
 	public void deleteMissionById(int missionId) {
 		Optional<Mission> m=mr.findById(missionId);
 		if (m.isPresent()) {
-			Mission mission = mr.findById(missionId).get();
+			Mission mission=m.get();
 		mr.delete(mission);}
 		
 		}

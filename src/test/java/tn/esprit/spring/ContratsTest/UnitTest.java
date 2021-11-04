@@ -143,14 +143,7 @@ public class UnitTest {
 		assertEquals(c.getEmploye().getId(), cs.getById(c.getReference()).getEmploye().getId());
 	}
 	
-	//@Test
-		public void TestAjouterMission() {
-			Mission mission= new Mission("externe","duréee de 3 mois");
-			
-			int miss=iTimesheetService.ajouterMission(mission);
-			 assertThat(miss).isEqualTo(7);
-			 l.info("Mission has been added successfully");
-		}
+	
 		//@Test
 		public void testAjouterTimesheet() {
 			Employe emp=new Employe("Issaoui", "Wissem","wissem@gmail.com",true,Role.ADMINISTRATEUR);
@@ -200,7 +193,7 @@ public class UnitTest {
 			when(mr.findAll()).thenReturn(Stream.of(mission1,mission2).collect(Collectors.toList()));
 		assertEquals(2,ms.getAll().size());
 		}
-		@Test
+		//@Test
 		public void addMissionTest() {
 		Mission mission = new Mission();
 		mission.setId(11);
@@ -276,4 +269,11 @@ mission.setName("marketing");
 			l.info("added");
 			assertTrue(iTimesheetService.validerTimesheet(10, 10, new Date(), new Date(), 11));
 	}*/
+		@Test
+		public void findTimesheetByPKTest() {
+			Timesheet ts = new Timesheet();
+			TimesheetPK tspk=new TimesheetPK(10, 10, new Date(), new Date());
+			ts.setTimesheetPK(tspk);
+		when(tsr.findBytimesheetPK(tspk)).thenReturn(ts);
+			assertEquals(ts, iTimesheetService.findTimesheetByTimesheetPK(tspk));}
 }

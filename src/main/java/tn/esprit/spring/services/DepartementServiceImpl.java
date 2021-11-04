@@ -1,6 +1,7 @@
 package tn.esprit.spring.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,10 @@ public class DepartementServiceImpl implements IDepartmentService{
 
 	@Override
 	public void deleteDepartementById(int departementId) {
-		if (dr.findById(departementId).isPresent()) {
-			Departement departement=dr.findById(departementId).get();
-			dr.delete(departement);}
+		Optional<Departement> d=dr.findById(departementId);
+		if (d.isPresent()) {
+			Departement dept=d.get();
+		dr.delete(dept);}
 		
 	}
 

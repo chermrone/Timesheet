@@ -1,6 +1,7 @@
 package tn.esprit.spring.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,10 @@ public class ContratServiceImpl implements IContratService {
 	
 	@Override
 	public void deleteContratById(int contratId) {
-		Contrat contratManagedEntity = cr.findById(contratId).get();
-		cr.delete(contratManagedEntity);
+		Optional<Contrat> c=cr.findById(contratId);
+		if (c.isPresent()) {
+			Contrat cont=c.get();
+		cr.delete(cont);}
 	}
 
 	@Override
@@ -41,7 +44,12 @@ public class ContratServiceImpl implements IContratService {
 
 	@Override
 	public Contrat findContratById(int id) {
-		return cr.findById(id).get();
+		Optional<Contrat> c=cr.findById(id);
+		if (c.isPresent()) {
+			return c.get();
+		}
+		return null;
+		
 	}
 
 }
