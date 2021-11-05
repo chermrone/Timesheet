@@ -1,7 +1,6 @@
 package tn.esprit.spring.ContratsTest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.util.Date;
@@ -59,7 +58,7 @@ public class UnitTest {
 		when(cr.findAll()).thenReturn(Stream.of(c1, c2, c3).collect(Collectors.toList()));
 		assertEquals(3, cs.getAll().size());
 	}
-	
+	// kjh
 	@Test
 	public void findByIdTest() {
 		Contrat c1 = new Contrat();
