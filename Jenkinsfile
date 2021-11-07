@@ -23,7 +23,7 @@ pipeline {
             steps {
                 bat "mvn package -f TimeSheet"
                 bat "mvn deploy -f TimeSheet"
-                bat "mvn sonar:sonar -f 
+                bat "mvn sonar:sonar -f "
             }
         }
     }
