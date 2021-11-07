@@ -16,13 +16,13 @@ pipeline {
         
         stage('test') {
             steps {
-                bat "mvn test -f TimeSheet"
+                bat "mvn test -f Timesheet"
             }
         }
         stage('package') {
             steps {
-                bat "mvn package -f TimeSheet"
-                bat "mvn deploy -f TimeSheet"
+                bat "mvn package -f Timesheet"
+                bat "mvn deploy -f Timesheet"
                 bat "mvn sonar:sonar -f "
             }
         }
