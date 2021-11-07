@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('git repo & clean') {
             steps {
-               bat "rmdir  /s /q Timesheet"
+             //  bat "rmdir  /s /q Timesheet"
                 bat "git clone https://github.com/chermrone/Timesheet.git"
                 bat "mvn clean -f Timesheet"
             }
