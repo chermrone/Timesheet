@@ -8,11 +8,12 @@ pipeline {
                 bat "mvn clean -f Timesheet"
             }
         }
-        stage('install') {
+      /*  stage('install') {
             steps {
                 bat "mvn install -f TimeSheet"
             }
-        }
+        } */ 
+        
         stage('test') {
             steps {
                 bat "mvn test -f TimeSheet"
