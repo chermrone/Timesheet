@@ -1,0 +1,4 @@
+https://portal.socketxp.com/#/authtoken
+https://www.socketxp.com/download/
+https://www.socketxp.com/download/
+https://stackoverflow.com/questions/33766275/i-need-help-setting-up-a-github-webhook-with-a-localhost-jenkins
