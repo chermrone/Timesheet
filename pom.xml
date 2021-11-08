@@ -64,15 +64,29 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+		<plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    
+</plugin>
 		</plugins>
 	</build>
-
+<distributionManagement>
+<snapshotRepository>
+<id>nexus-snapshots</id>
+<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+</snapshotRepository>
+<repository>
+<id>nexus-releases</id>
+<url>http://localhost:8081/nexus/content/repositories/releases/</url>
+</repository>
+</distributionManagement>
 </project>
