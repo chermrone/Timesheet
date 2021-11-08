@@ -32,7 +32,8 @@ public class RestControlEntreprise {
 	 
 	@PostMapping("/ajouterEntreprise")
 	@ResponseBody
-	public int ajouterEntreprise(@RequestBody Entreprise ssiiConsulting) {
+	public int ajouterEntreprise(@RequestBody Entreprise ssiiConsulting)//NOSONAR
+	{
 		ientrepriseservice.ajouterEntreprise(ssiiConsulting);
 		return ssiiConsulting.getId();
 	}
@@ -63,7 +64,8 @@ public class RestControlEntreprise {
 
  	@PostMapping("/ajouterDepartement")
  	@ResponseBody
-	public int ajouterDepartement(@RequestBody Departement dep) {
+	public int ajouterDepartement(@RequestBody Departement dep)//NOSONAR
+ 	{
 		return ientrepriseservice.ajouterDepartement(dep);
 	}
 	

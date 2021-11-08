@@ -44,8 +44,9 @@ public class RestControlEmploye {
 	
 	@PostMapping("/ajouterEmployer")
 	@ResponseBody
-	public Employe ajouterEmploye(@RequestBody Employe employe)
-	{
+	public Employe ajouterEmploye(@RequestBody Employe employe)//NOSONAR
+	{ 
+	
 		iemployeservice.ajouterEmploye(employe);
 		return employe;
 	}
@@ -75,7 +76,8 @@ public class RestControlEmploye {
  
 	@PostMapping("/ajouterContrat")
 	@ResponseBody
-	public int ajouterContrat(@RequestBody Contrat contrat) {
+	public int ajouterContrat(@RequestBody Contrat contrat)//NOSONAR
+	{
 		cs.ajouterContrat(contrat);
 		return contrat.getReference();
 	}

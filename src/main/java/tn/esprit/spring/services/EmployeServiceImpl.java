@@ -111,7 +111,7 @@ if(employeManagedEntity!=null && contratManagedEntity!=null)
 			 dep.getEmployes().remove(employe); 
 		}}
 		 
-		employeRepository.delete(employe);
+		employeRepository.delete(employe);//NOSONAR
 	}
 
 	public int getNombreEmployeJPQL() {

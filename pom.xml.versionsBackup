@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>tn.esprit.spring</groupId>
 	<artifactId>Timesheet-spring-boot-core-data-jpa-mvc-REST-1</artifactId>
-	<version>5</version>
+	<version>3</version>
 	<packaging>jar</packaging>
 	<name>Timesheet-spring-boot-core-data-jpa-mvc-REST-1</name>
 	<description>Timesheet-spring-boot-core-data-jpa-mvc-REST-1</description>
@@ -75,6 +75,12 @@
     <artifactId>sonar-maven-plugin</artifactId>
     <version>3.8.0.2131</version>
 </dependency>
+		<!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+<dependency>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.1</version>
+</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
 <dependency>
@@ -95,9 +101,6 @@
 		
 	</dependencies>
 
- 
- 
-
 	<build>
 		<plugins>
 			<plugin>
@@ -110,7 +113,8 @@
         <artifactId>maven-deploy-plugin</artifactId>
       </plugin>
  
-			 
+			
+			
 			
 		</plugins>
 	 <finalName>app</finalName>

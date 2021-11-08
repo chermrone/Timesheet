@@ -82,7 +82,7 @@ class EmployeServiceImplTest {
 	}
 	/*@Test
 	void testAjouterContrat() {
-		fail("Not yet implemented");
+		  
 	}
 	
 	
