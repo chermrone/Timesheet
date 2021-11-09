@@ -18,7 +18,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-		<start-class>tn.esprit.spring.TimesheetSpringBootCoreDataJpaMvcRest1Applicatio</start-class>
+		<start-class>tn.esprit.spring.TimesheetSpringBootCoreDataJpaMvcRest1Application</start-class>
 	</properties>
 
 	<dependencies>
@@ -72,6 +72,14 @@
 
 	<build>
 		<plugins>
+		<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration>
+          <webappDirectory>/sample/servlet/container/deploy/directory</webappDirectory>
+        </configuration>
+      </plugin>
 		<plugin>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-maven-plugin</artifactId>
